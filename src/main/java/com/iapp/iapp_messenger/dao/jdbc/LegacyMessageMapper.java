@@ -1,0 +1,27 @@
+package com.iapp.iapp_messenger.dao.jdbc;
+
+import com.iapp.iapp_messenger.lib.web.Message;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * completely converts the message representation
+ * from the database to an object
+ * */
+public class LegacyMessageMapper implements RowMapper<Message> {
+
+    @Override
+    public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Message message = new Message();
+
+        message.setId(rs.getLong("id"));
+        message.setPinned(rs.getBoolean("pinned"));
+        message.setTime(rs.getLong("time"));
+        message.setText(rs.getString("text"));
+        message.setSenderId(rs.getLong("senderId"));
+
+        return message;
+    }
+}
